@@ -7,6 +7,8 @@ import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/app_column.dart';
+
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
 
@@ -99,8 +101,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   children: [
                     //image
                     Container(
-                      width: Dimensions.width120,
-                      height: Dimensions.width120,
+                      width: 120,
+                      height: 120,
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
@@ -112,7 +114,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     //text
                     Expanded(
                       child: Container(
-                        height: Dimensions.height100,
+                        height: 100,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(Dimensions.radius20),
@@ -223,63 +225,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   top: Dimensions.height10,
                   left: Dimensions.width15,
                   right: Dimensions.width15),
-              child: Column(
-                children: [
-                  BigText(
-                    text: "Apple",
-                  ),
-                  SizedBox(
-                    height: Dimensions.height10,
-                  ),
-                  Row(
-                    children: [
-                      Wrap(
-                        children: List.generate(
-                            5,
-                            (index) => Icon(
-                                  Icons.star,
-                                  color: AppColors.mainColor,
-                                  size: 15,
-                                )),
-                      ),
-                      SizedBox(
-                        width: Dimensions.width10,
-                      ),
-                      SmallText(text: "4.5"),
-                      SizedBox(
-                        width: Dimensions.width10,
-                      ),
-                      SmallText(text: "comments"),
-                      SizedBox(
-                        height: Dimensions.height20,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: Dimensions.height10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconAndTextWidget(
-                        icon: Icons.circle_sharp,
-                        iconColor: AppColors.iconColor1,
-                        text: "Normal",
-                      ),
-                      IconAndTextWidget(
-                        icon: Icons.location_on,
-                        iconColor: AppColors.mainColor,
-                        text: "1.7km",
-                      ),
-                      IconAndTextWidget(
-                        icon: Icons.access_time_rounded,
-                        iconColor: AppColors.iconColor2,
-                        text: "24min",
-                      ),
-                    ],
-                  )
-                ],
-              ),
+              child: AppColumn(text:"Custom Apple")
             ),
           ),
         ),
