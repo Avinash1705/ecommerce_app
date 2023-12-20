@@ -1,10 +1,13 @@
 import 'package:ecommerce_app/common/app_icon.dart';
 import 'package:ecommerce_app/common/big_text.dart';
 import 'package:ecommerce_app/utils/colors.dart';
+import 'package:ecommerce_app/utils/constants.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/app_column.dart';
+import '../../common/expandable_text_widget.dart';
 
 class PopularFoodDetail extends StatefulWidget {
   const PopularFoodDetail({Key? key}) : super(key: key);
@@ -57,9 +60,18 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(Dimensions.radius30),
                         topLeft: Radius.circular(Dimensions.radius30))),
-                child: AppColumn(text: "Custom Apple 1"),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppColumn(text: "Custom Apple 1"),
+                    SizedBox(height: Dimensions.height20,),
+                    BigText(text: "Introduce"),
+                    SizedBox(height: Dimensions.height20,),
+                    Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text:Constants.foodDescription,)))
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
         bottomNavigationBar: Container(
