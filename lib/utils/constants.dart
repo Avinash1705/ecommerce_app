@@ -1,4 +1,15 @@
 class Constants {
+
+
+  static const appName = "AviFood";
+  static const appVersion = 1;
+  static const token = "Avitoken";
+  static const baseUrl = "https://mvs.bslmeiyu.com";
+  static const uploadUrl = "/uploads/";
+  // static const baseUrl = "http://localhost/";
+  static const popularProductUri = "/api/v1/products/popular";
+  static const recommendedProductUri = "/api/v1/products/recommended";
+  // static const popularProductUri = "api/show.php";
   static const foodDescription =
       "Delicious meals are tasty, appetizing, scrumptious, yummy, "
       "luscious, delectable, mouth-watering, fit for a king, delightful, lovely, wonderful, pleasant, "

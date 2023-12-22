@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:ecommerce_app/common/small_text.dart';
 import 'package:flutter/cupertino.dart';
