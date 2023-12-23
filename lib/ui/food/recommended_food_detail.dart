@@ -1,20 +1,26 @@
 import 'package:ecommerce_app/common/app_icon.dart';
 import 'package:ecommerce_app/common/big_text.dart';
 import 'package:ecommerce_app/common/expandable_text_widget.dart';
+import 'package:ecommerce_app/controllers/recommended_product_controller.dart';
+import 'package:ecommerce_app/routes/routes_helper.dart';
 import 'package:ecommerce_app/utils/colors.dart';
 import 'package:ecommerce_app/utils/constants.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecomendedFoodDetail extends StatelessWidget {
-  RecomendedFoodDetail({Key? key}) : super(key: key);
+  int pageId ;
+  RecomendedFoodDetail({Key? key ,required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+var recomProduct = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
               pinned: true,
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(30),
@@ -30,7 +36,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                   child: Center(
                     child: BigText(
                       size: Dimensions.fonts26,
-                      text: 'Indian Side',
+                      text: recomProduct.name.toString(),
                     ),
                   ),
                 ),
@@ -38,15 +44,17 @@ class RecomendedFoodDetail extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.clear),
+                  GestureDetector(
+                      onTap: () => Get.toNamed(RoutesHelper.getInitial()),
+                      child: AppIcon(icon: Icons.clear)),
                   AppIcon(icon: Icons.shopping_cart_outlined),
                 ],
               ),
               backgroundColor: AppColors.yellowColor,
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  "images/fruit12.jpg",
+                background: Image.network(
+                  Constants.baseUrl+Constants.uploadUrl+recomProduct.img.toString(),
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),
@@ -58,9 +66,7 @@ class RecomendedFoodDetail extends StatelessWidget {
               child: Column(
                 children: [
                   ExpandableTextWidget(
-                      text: Constants.foodDescription +
-                          Constants.foodDescription +
-                          Constants.foodDescription)
+                      text: recomProduct.description.toString())
                 ],
               ),
             ),
@@ -85,7 +91,11 @@ class RecomendedFoodDetail extends StatelessWidget {
                     iconColor: Colors.white,
                     backgroundColor: AppColors.mainColor,
                     icon: Icons.remove),
-                BigText(text: "\$12.88 " +" X "+" 0",color: AppColors.mainBlackColor,size: Dimensions.fonts26,),
+                BigText(
+                  text: "\$12.88 " + " X " + " 0",
+                  color: AppColors.mainBlackColor,
+                  size: Dimensions.fonts26,
+                ),
                 AppIcon(
                     size: Dimensions.iconSize24,
                     iconColor: Colors.white,
@@ -119,7 +129,10 @@ class RecomendedFoodDetail extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: Colors.white),
-                  child: Icon(Icons.favorite,color: AppColors.mainColor,),
+                  child: Icon(
+                    Icons.favorite,
+                    color: AppColors.mainColor,
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.only(
@@ -130,7 +143,10 @@ class RecomendedFoodDetail extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: AppColors.mainColor),
-                  child: BigText(text: "\$10 | Add to cart",color: Colors.white,),
+                  child: BigText(
+                    text: "\$ ${recomProduct.price} | Add to cart",
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),

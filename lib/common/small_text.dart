@@ -18,7 +18,6 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           fontFamily: "Roboto", color: color, fontSize: size, height: height),
     );

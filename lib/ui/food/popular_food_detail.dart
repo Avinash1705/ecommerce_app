@@ -1,24 +1,30 @@
 import 'package:ecommerce_app/common/app_icon.dart';
 import 'package:ecommerce_app/common/big_text.dart';
+import 'package:ecommerce_app/controllers/popular_product_controller.dart';
 import 'package:ecommerce_app/utils/colors.dart';
 import 'package:ecommerce_app/utils/constants.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../common/app_column.dart';
 import '../../common/expandable_text_widget.dart';
+import '../../model/product_model.dart';
+import '../../routes/routes_helper.dart';
 
-class PopularFoodDetail extends StatefulWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+class PopularFoodDetail extends StatelessWidget {
+  int pageId;
 
-  @override
-  State<PopularFoodDetail> createState() => _PopularFoodDetailState();
-}
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
-class _PopularFoodDetailState extends State<PopularFoodDetail> {
+
+
   @override
   Widget build(BuildContext context) {
+    Products product = Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
         body: Stack(
           children: [
@@ -32,7 +38,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage("images/apple.jpg"))),
+                          image: NetworkImage(Constants.baseUrl+Constants.uploadUrl+product.img.toString()))),
                 )),
             Positioned(
                 left: Dimensions.width20,
@@ -41,7 +47,9 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(icon: Icons.arrow_back_ios),
+                    GestureDetector(
+                        onTap: () => {Get.toNamed(RoutesHelper.getInitial())},
+                        child: AppIcon(icon: Icons.arrow_back_ios)),
                     AppIcon(icon: Icons.shopping_cart_outlined),
                   ],
                 )),
@@ -63,11 +71,19 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: "Custom Apple 1"),
-                    SizedBox(height: Dimensions.height20,),
+                    AppColumn(text: product.name.toString()),
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
                     BigText(text: "Introduce"),
-                    SizedBox(height: Dimensions.height20,),
-                    Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text:Constants.foodDescription,)))
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    Expanded(
+                        child: SingleChildScrollView(
+                            child: ExpandableTextWidget(
+                      text: product.description.toString(),
+                    )))
                   ],
                 ),
               ),
@@ -128,9 +144,11 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                     color: AppColors.mainColor),
-                child: BigText(text: "\$10 | Add to cart",color: Colors.white,),
+                child: BigText(
+                  text: "\$ ${product.price} | Add to cart",
+                  color: Colors.white,
+                ),
               ),
-
             ],
           ),
         ));

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/controllers/popular_product_controller.dart';
 import 'package:ecommerce_app/controllers/recommended_product_controller.dart';
 import 'package:ecommerce_app/helper/dependencies.dart' as dep;
+import 'package:ecommerce_app/routes/routes_helper.dart';
 import 'package:ecommerce_app/ui/food/recommended_food_detail.dart';
 import 'package:ecommerce_app/ui/home/main_food_page.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      getPages: RoutesHelper.routes ,
+      initialRoute: RoutesHelper.initial,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
