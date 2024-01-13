@@ -1,7 +1,7 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../data/repositary/recommended_product_repo.dart';
-import '../model/recommended_model.dart';
+import '../model/product_model.dart';
 import '../utils/constants.dart';
 
 class RecommendedProductController extends GetxController {
@@ -23,7 +23,7 @@ class RecommendedProductController extends GetxController {
     Response response = await recommendedProductsRepo.getRecommendedProductList();
     if(response.statusCode ==200 ){
       _recommendedProductList = [];
-      _recommendedProductList.addAll(RecommendedProductModel.fromJson(response.body).products!);
+      _recommendedProductList.addAll(ProductModel.fromJson(response.body).products!);
       _isLoading = true ;
       update();
     }

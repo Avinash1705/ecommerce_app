@@ -1,9 +1,8 @@
 import 'package:ecommerce_app/data/repositary/cart_repo.dart';
-import 'package:ecommerce_app/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../model/cart_model.dart';
+import '../model/product_model.dart';
 import '../utils/colors.dart';
 
 class CartController extends GetxController {
@@ -16,10 +15,10 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(Products product, int quantity) {
-    var totalQuantity =0 ;
+    var totalQuantity = 0;
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (value) {
-        totalQuantity = value.quantity!+quantity;
+        totalQuantity = value.quantity! + quantity;
         return CartModel(
             id: value.id,
             name: value.name,
@@ -27,11 +26,10 @@ class CartController extends GetxController {
             img: value.img,
             quantity: value.quantity! + quantity,
             isExist: true,
-            time: DateTime.now().toString()
-        );
+            time: DateTime.now().toString());
       });
-      if(totalQuantity <= 0){
-        _items .remove(product.id!);
+      if (totalQuantity <= 0) {
+        _items.remove(product.id!);
       }
     } else {
       if (quantity > 0) {
@@ -70,5 +68,18 @@ class CartController extends GetxController {
       });
     }
     return quantity;
+  }
+
+  int get totalItems {
+    var totalquantity = 0;
+    _items.forEach((key, value) {
+      totalquantity += value.quantity!;
+    });
+    return totalquantity;
+  }
+
+  //return total obj to show all detail in cart
+  List<CartModel> get getItems {
+    return _items.entries.map((e) => e.value).toList();
   }
 }

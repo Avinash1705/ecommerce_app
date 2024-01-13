@@ -2,14 +2,12 @@ import 'package:ecommerce_app/common/app_icon.dart';
 import 'package:ecommerce_app/common/big_text.dart';
 import 'package:ecommerce_app/controllers/cart_controller.dart';
 import 'package:ecommerce_app/controllers/popular_product_controller.dart';
+import 'package:ecommerce_app/ui/cart/cart_page.dart';
 import 'package:ecommerce_app/utils/colors.dart';
 import 'package:ecommerce_app/utils/constants.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../common/app_column.dart';
 import '../../common/expandable_text_widget.dart';
@@ -23,9 +21,8 @@ class PopularFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Products product =
-        Get.find<PopularProductController>().popularProductList[pageId];
-    Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
+    Products product = Get.find<PopularProductController>().popularProductList[pageId];
+    Get.find<PopularProductController>().initProduct(product, Get.find<CartController>());
     return Scaffold(
         body: Stack(
           children: [
@@ -53,7 +50,33 @@ class PopularFoodDetail extends StatelessWidget {
                     GestureDetector(
                         onTap: () => {Get.toNamed(RoutesHelper.getInitial())},
                         child: AppIcon(icon: Icons.arrow_back_ios)),
-                    AppIcon(icon: Icons.shopping_cart_outlined),
+                    GetBuilder<PopularProductController>(builder: (controller) {
+                      return Stack(
+                        children: [
+                          AppIcon(icon: Icons.shopping_cart_outlined),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                            right: 0,top:0,
+                                child: GestureDetector(
+                                  onTap: () => Get.to(()=>CartPage()),
+                                  child: AppIcon(
+                                      icon: Icons.circle,
+                                      size: 20,
+                                      iconColor: Colors.transparent,
+                                      backgroundColor: AppColors.mainColor,
+                                    ),
+                                ),
+                              )
+                              : Container(),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                            right:3,top:3,
+                            child: Positioned(bottom:0,right:0,child: BigText(text: Get.find<PopularProductController>().totalItems.toString(),color: Colors.white,size: 12,)),
+                          )
+                              : Container()
+                        ],
+                      );
+                    })
                   ],
                 )),
             Positioned(
@@ -136,7 +159,8 @@ class PopularFoodDetail extends StatelessWidget {
                           width: Dimensions.width20 / 2,
                         ),
                         BigText(
-                            text: popularProductController.inCartItems.toString()),
+                            text: popularProductController.inCartItems
+                                .toString()),
                         SizedBox(
                           width: Dimensions.width20 / 2,
                         ),
@@ -163,7 +187,7 @@ class PopularFoodDetail extends StatelessWidget {
                             BorderRadius.circular(Dimensions.radius20),
                         color: AppColors.mainColor),
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         popularProductController.addItem(product);
                       },
                       child: BigText(

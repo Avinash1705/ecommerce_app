@@ -53,6 +53,7 @@ flutter:
 assets:
     images:
       - images/
+      - images/wine.jpg
 
     fonts:
      - family: Roboto

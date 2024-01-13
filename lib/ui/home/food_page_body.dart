@@ -54,32 +54,34 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   // color: Colors.red,
                   height: Dimensions.pageView,
                   child: PageView.builder(
-                  controller: pageController,
-                  itemCount: popularProducts.popularProductList.isEmpty
-                      ? 1
-                      : popularProducts.popularProductList.length,
-                  itemBuilder: (context, position) {
-                    return _buildPageItem(position,
-                        popularProducts.popularProductList[position]);
-                  })
-                )
+                      controller: pageController,
+                      itemCount: popularProducts.popularProductList.isEmpty
+                          ? 1
+                          : popularProducts.popularProductList.length,
+                      itemBuilder: (context, position) {
+                        return _buildPageItem(position,
+                            popularProducts.popularProductList[position]);
+                      }))
               : CircularProgressIndicator(
                   color: AppColors.mainColor,
                 );
         }),
 
         GetBuilder<PopularProductController>(
-          builder: (popularProducts) => DotsIndicator(
-            dotsCount: popularProducts.popularProductList.length,
-            position: _currentPageValue.toInt(),
-            decorator: DotsDecorator(
-              activeColor: AppColors.mainColor,
-              size: const Size.square(9.0),
-              activeSize: const Size(18.0, 9.0),
-              activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0)),
-            ),
-          ),
+          builder: (popularProducts) =>
+              popularProducts.popularProductList.isEmpty
+                  ? CircularProgressIndicator()
+                  : DotsIndicator(
+                      dotsCount: popularProducts.popularProductList.length,
+                      position: _currentPageValue.toInt(),
+                      decorator: DotsDecorator(
+                        activeColor: AppColors.mainColor,
+                        size: const Size.square(9.0),
+                        activeSize: const Size(18.0, 9.0),
+                        activeShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    ),
         ),
         //popular tags
         Container(
@@ -109,15 +111,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         //listview
-        GetBuilder<RecommendedProductController>(builder: (recommendedProducts) {
-          return   ListView.builder(
+        GetBuilder<RecommendedProductController>(
+            builder: (recommendedProducts) {
+          return ListView.builder(
               itemCount: recommendedProducts.recommendedProductList.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: (){
-                     Get.toNamed(RoutesHelper.getRecommendedFood(index));
+                  onTap: () {
+                    Get.toNamed(RoutesHelper.getRecommendedFood(index));
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -127,28 +130,34 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     child: Row(
                       children: [
                         //image
-                        recommendedProducts.isLoading? Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                              color: Colors.white38,
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  // image: AssetImage("assets/images/apple1.jpg")
-                                  image: NetworkImage(Constants.baseUrl+Constants.uploadUrl+recommendedProducts.recommendedProductList[index].img!)
-                              )),
-                        ):CircularProgressIndicator(),
+                        recommendedProducts.isLoading
+                            ? Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radius20),
+                                    color: Colors.white38,
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        // image: AssetImage("assets/images/apple1.jpg")
+                                        image: NetworkImage(Constants.baseUrl +
+                                            Constants.uploadUrl +
+                                            recommendedProducts
+                                                .recommendedProductList[index]
+                                                .img!))),
+                              )
+                            : CircularProgressIndicator(),
                         //text
                         Expanded(
                           child: Container(
                             height: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(Dimensions.radius20),
+                                  topRight:
+                                      Radius.circular(Dimensions.radius20),
                                   bottomRight:
-                                  Radius.circular(Dimensions.radius20)),
+                                      Radius.circular(Dimensions.radius20)),
                               color: Colors.white,
                             ),
                             child: Padding(
@@ -157,17 +166,23 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   right: Dimensions.width10),
                               child: Column(
                                 children: [
-                                  BigText(text: recommendedProducts.recommendedProductList[index].name!),
+                                  BigText(
+                                      text: recommendedProducts
+                                          .recommendedProductList[index].name!),
                                   SizedBox(
                                     height: Dimensions.height10,
                                   ),
-                                  Flexible(child: SmallText(text: recommendedProducts.recommendedProductList[index].description!)),
+                                  Flexible(
+                                      child: SmallText(
+                                          text: recommendedProducts
+                                              .recommendedProductList[index]
+                                              .description!)),
                                   SizedBox(
                                     height: Dimensions.height10,
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconAndTextWidget(
                                         icon: Icons.circle_sharp,
@@ -196,8 +211,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   ),
                 );
               });
-        }
-          )
+        })
       ],
     );
   }
