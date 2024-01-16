@@ -18,11 +18,11 @@ import 'package:get/get.dart';
 import '../../controllers/cart_controller.dart';
 import '../../model/recommended_model.dart';
 
-
 class RecomendedFoodDetail extends StatelessWidget {
   int pageId;
+  String page;
 
-  RecomendedFoodDetail({Key? key, required this.pageId}) : super(key: key);
+  RecomendedFoodDetail({Key? key, required this.pageId,required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,30 +63,55 @@ class RecomendedFoodDetail extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                        onTap: () => Get.toNamed(RoutesHelper.getInitial()),
+                        onTap: () => {
+                          if(page == "cartpage"){
+                            Get.toNamed(RoutesHelper.getCartPage())
+                          }
+                          else {
+                            Get.toNamed(RoutesHelper.getInitial())
+                          }
+                        },
                         child: AppIcon(icon: Icons.clear)),
                     GetBuilder<PopularProductController>(builder: (controller) {
-                      return Stack(
-                        children: [
-                          GestureDetector(onTap: ()=>Get.to(CartPage()),child: AppIcon(icon: Icons.shopping_cart_outlined)),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                            right: 0,top:0,
-                            child: AppIcon(
-                              icon: Icons.circle,
-                              size: 20,
-                              iconColor: Colors.transparent,
-                              backgroundColor: AppColors.mainColor,
-                            ),
-                          )
-                              : Container(),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                            right:3,top:3,
-                            child: Positioned(bottom:0,right:0,child: BigText(text: Get.find<PopularProductController>().totalItems.toString(),color: Colors.white,size: 12,)),
-                          )
-                              : Container()
-                        ],
+                      return GestureDetector(
+                          onTap: () {
+                            if(controller.totalItems >= 1 )
+                              Get.toNamed(RoutesHelper.getCartPage());
+                          },
+                        child: Stack(
+                          children: [
+                            AppIcon(icon: Icons.shopping_cart_outlined),
+                            Get.find<PopularProductController>().totalItems >= 1
+                                ? Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: AppIcon(
+                                      icon: Icons.circle,
+                                      size: 20,
+                                      iconColor: Colors.transparent,
+                                      backgroundColor: AppColors.mainColor,
+                                    ),
+                                  )
+                                : Container(),
+                            Get.find<PopularProductController>().totalItems >= 1
+                                ? Positioned(
+                                    right: 3,
+                                    top: 3,
+                                    child: Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: BigText(
+                                          text:
+                                              Get.find<PopularProductController>()
+                                                  .totalItems
+                                                  .toString(),
+                                          color: Colors.white,
+                                          size: 12,
+                                        )),
+                                  )
+                                : Container()
+                          ],
+                        ),
                       );
                     }),
                   ],
@@ -208,7 +233,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                                 BorderRadius.circular(Dimensions.radius20),
                             color: AppColors.mainColor),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             controller.addItem(recomProduct);
                           },
                           child: BigText(
