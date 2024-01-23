@@ -50,4 +50,7 @@ class Dimensions {
   //radius
   static double radius20 = screenHeight /42.2;
   static double radius30 = screenHeight /28.13;
+
+  //splash screen
+static double splashImg = screenHeight/3.38;
 }

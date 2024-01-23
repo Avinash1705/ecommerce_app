@@ -6,6 +6,8 @@ class Constants {
   static const token = "Avitoken";
   static const baseUrl = "https://mvs.bslmeiyu.com";
   static const uploadUrl = "/uploads/";
+  static const CART_LIST = "cart-list";
+  static const CART_HISTORY_LIST = "cart-history-list";
   // static const baseUrl = "http://localhost/";
   static const popularProductUri = "/api/v1/products/popular";
   static const recommendedProductUri = "/api/v1/products/recommended";

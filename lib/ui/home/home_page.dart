@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/ui/cart/cart_history.dart';
 import 'package:ecommerce_app/ui/home/main_food_page.dart';
 import 'package:ecommerce_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart ';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       child: Center(child: Text("2 page")),
     ),
     Container(
-      child: Center(child: Text("3 pagesadasdasda")),
+      child: CartHistory(),
     ),
     Container(
       child: Center(child: Text("4 page")),

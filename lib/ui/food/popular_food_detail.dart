@@ -23,10 +23,13 @@ class PopularFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     Products product =
         Get.find<PopularProductController>().popularProductList[pageId];
     Get.find<PopularProductController>()
         .initProduct(product, Get.find<CartController>());
+
+    print("saved data "+Get.find<CartController>().cartRepo.getCartList().toString());
     return Scaffold(
         body: Stack(
           children: [
