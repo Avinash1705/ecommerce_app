@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecommerce_app/controllers/login_controller.dart';
 import 'package:ecommerce_app/routes/routes_helper.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,20 +23,35 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController controller;
 
   late Animation<double> animation;
+  late bool isLogin =false;
 
   @override
   void initState() {
+     checkUserAlreadyLogin().then((value) => isLogin = value);
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
-    Timer(Duration(seconds: 3), () => Get.offNamed(RoutesHelper.getInitial()));
+    Timer(
+        Duration(seconds: 3),
+        () => isLogin
+            ? Get.offNamed(RoutesHelper.getInitial())
+            : Get.offNamed(RoutesHelper.getLoginPage()));
     super.initState();
   }
 
   Future<void> _loadResources() async {
     await Get.find<PopularProductController>().getPopularProductList();
     await Get.find<RecommendedProductController>().getRecommendedProductList();
+
+  }
+
+  Future<bool> checkUserAlreadyLogin() async{
+    // Get.find<LoginController>().checkLogin();
+    LoginController loginController = Get.find<LoginController>();
+     isLogin = await loginController.sharedPreferencesLogin.getBool("isLogin")!;
+    print("userLoign"+isLogin.toString());
+    return isLogin;
   }
 
   @override

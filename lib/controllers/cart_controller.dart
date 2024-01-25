@@ -87,7 +87,6 @@ class CartController extends GetxController {
 
   //return total obj to show all detail in cart
   List<CartModel> get getItems {
-
     return _items.entries.map((e) => e.value).toList();
   }
 
@@ -95,7 +94,7 @@ class CartController extends GetxController {
   int get totalAmount {
     var total = 0;
     _items.forEach((key, value) {
-      total += value.quantity! * value.price!;
+      total += value.quantity! * int.parse(value.product!.price.toString());
     });
     return total;
   }
@@ -124,7 +123,17 @@ class CartController extends GetxController {
     update();
   }
 
-  List<CartModel> getCartHistoryList(){
+  List<CartModel> getCartHistoryList() {
     return cartRepo.getCartHistoryList();
+  }
+
+  //setter for more value to get set
+  set setItems(Map<int, CartModel> setItems) {
+    _items = {};
+    _items = setItems;
+  }
+  void addToCartList(){
+    cartRepo.addToCartList(getItems);
+    update();
   }
 }

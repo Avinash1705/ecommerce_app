@@ -165,13 +165,13 @@ class PopularFoodDetail extends StatelessWidget {
                 children: [
                   Container(
                     padding: EdgeInsets.only(
-                        left: Dimensions.width20,
-                        right: Dimensions.width20,
-                        top: Dimensions.height20,
-                        bottom: Dimensions.height20),
+                        left: Dimensions.width10,
+                        right: Dimensions.width10,
+                        top: Dimensions.height10,
+                        bottom: Dimensions.height10),
                     decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
+                            BorderRadius.circular(Dimensions.radius20/2),
                         color: Colors.white),
                     child: Row(
                       children: [
@@ -207,13 +207,13 @@ class PopularFoodDetail extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.only(
-                        left: Dimensions.width20,
-                        right: Dimensions.width20,
-                        top: Dimensions.height20,
-                        bottom: Dimensions.height20),
+                        left: Dimensions.width10,
+                        right: Dimensions.width10,
+                        top: Dimensions.height10,
+                        bottom: Dimensions.height10),
                     decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
+                            BorderRadius.circular(Dimensions.radius20/2),
                         color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {

@@ -3,11 +3,14 @@ import 'package:ecommerce_app/controllers/popular_product_controller.dart';
 import 'package:ecommerce_app/controllers/recommended_product_controller.dart';
 import 'package:ecommerce_app/helper/dependencies.dart' as dep;
 import 'package:ecommerce_app/routes/routes_helper.dart';
+import 'package:ecommerce_app/ui/authenticate/login_page.dart';
 import 'package:ecommerce_app/ui/cart/cart_history.dart';
 import 'package:ecommerce_app/ui/food/recommended_food_detail.dart';
 import 'package:ecommerce_app/ui/home/main_food_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'base/no_data_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();            //make sure dep is loaded

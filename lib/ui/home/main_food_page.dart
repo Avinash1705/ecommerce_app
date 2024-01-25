@@ -2,7 +2,11 @@ import 'package:ecommerce_app/common/big_text.dart';
 import 'package:ecommerce_app/common/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../controllers/popular_product_controller.dart';
+import '../../controllers/recommended_product_controller.dart';
 import '../../utils/colors.dart';
 import 'food_page_body.dart';
 
@@ -12,55 +16,59 @@ class MainFoodPage extends StatefulWidget {
   @override
   State<MainFoodPage> createState() => _MainFoodPageState();
 }
+Future<void> _loadResources() async {
+  await Get.find<PopularProductController>().getPopularProductList();
+  await Get.find<RecommendedProductController>().getRecommendedProductList();
+}
 
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        Container(
-          child: Container(
-            margin: EdgeInsets.only(top: 45, bottom: 15),
-            padding: EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+        body: RefreshIndicator(child: Column(
+          children: [
+            Container(
+              child: Container(
+                margin: EdgeInsets.only(top: 45, bottom: 15),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    BigText(
-                      text: "India",
-                      color: AppColors.mainColor,
-                      size: 30,
-                    ),
-                    Row(
+                    Column(
                       children: [
-                        SmallText(
-                          text: "Lucknow",
-                          color: Colors.black54,
+                        BigText(
+                          text: "India",
+                          color: AppColors.mainColor,
+                          size: 30,
                         ),
-                        Icon(Icons.arrow_drop_down_rounded)
+                        Row(
+                          children: [
+                            SmallText(
+                              text: "Lucknow",
+                              color: Colors.black54,
+                            ),
+                            Icon(Icons.arrow_drop_down_rounded)
+                          ],
+                        )
                       ],
+                    ),
+                    Container(
+                      width: 45,
+                      height: 45,
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: AppColors.mainColor),
                     )
                   ],
                 ),
-                Container(
-                  width: 45,
-                  height: 45,
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: AppColors.mainColor),
-                )
-              ],
+              ),
             ),
-          ),
-        ),
-        Expanded(child: SingleChildScrollView(child: FoodPageBody()))
-      ],
-    ));
+            Expanded(child: SingleChildScrollView(child: FoodPageBody()))
+          ],
+        ), onRefresh: _loadResources));
   }
 }

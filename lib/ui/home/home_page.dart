@@ -1,9 +1,13 @@
+import 'package:ecommerce_app/ui/account/account_page.dart';
 import 'package:ecommerce_app/ui/cart/cart_history.dart';
+import 'package:ecommerce_app/ui/cart/cart_page.dart';
 import 'package:ecommerce_app/ui/home/main_food_page.dart';
 import 'package:ecommerce_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart ';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../account/map_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -19,13 +23,13 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pages = [
     MainFoodPage(),
     Container(
-      child: Center(child: Text("2 page")),
-    ),
-    Container(
       child: CartHistory(),
     ),
     Container(
-      child: Center(child: Text("4 page")),
+      child: CartPage(),
+    ),
+    Container(
+      child:AccountPage(),
     ),
   ];
 

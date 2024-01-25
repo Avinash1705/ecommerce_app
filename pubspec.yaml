@@ -30,6 +30,7 @@ dependencies:
 #  get_storage: any
   shared_preferences: any
   intl:
+  google_maps_flutter:
 
 
 dev_dependencies:
