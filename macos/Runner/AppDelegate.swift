@@ -1,5 +1,6 @@
 import Cocoa
 import FlutterMacOS
+import GoogleMaps
 
 @NSApplicationMain
 class AppDelegate: FlutterAppDelegate {
