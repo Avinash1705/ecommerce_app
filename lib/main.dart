@@ -7,6 +7,7 @@ import 'package:ecommerce_app/ui/authenticate/login_page.dart';
 import 'package:ecommerce_app/ui/cart/cart_history.dart';
 import 'package:ecommerce_app/ui/food/recommended_food_detail.dart';
 import 'package:ecommerce_app/ui/home/main_food_page.dart';
+import 'package:ecommerce_app/ui/paypal/payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

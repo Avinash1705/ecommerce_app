@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart%20';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/popular_product_controller.dart';
 import '../../controllers/recommended_product_controller.dart';
 
@@ -23,11 +22,12 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController controller;
 
   late Animation<double> animation;
-  late bool isLogin =false;
+  late bool isLogin = false;
 
   @override
   void initState() {
-     checkUserAlreadyLogin().then((value) => isLogin = value);
+    super.initState();
+    checkUserAlreadyLogin().then((value) => isLogin = value);
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..forward();
@@ -37,20 +37,27 @@ class _SplashScreenState extends State<SplashScreen>
         () => isLogin
             ? Get.offNamed(RoutesHelper.getInitial())
             : Get.offNamed(RoutesHelper.getLoginPage()));
-    super.initState();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   Future<void> _loadResources() async {
     await Get.find<PopularProductController>().getPopularProductList();
     await Get.find<RecommendedProductController>().getRecommendedProductList();
-
   }
 
-  Future<bool> checkUserAlreadyLogin() async{
+  Future<bool> checkUserAlreadyLogin() async {
     // Get.find<LoginController>().checkLogin();
     LoginController loginController = Get.find<LoginController>();
-     isLogin = await loginController.sharedPreferencesLogin.getBool("isLogin")!;
-    print("userLoign"+isLogin.toString());
+    if (loginController.sharedPreferencesLogin.getBool("isLogin") == null) {
+      isLogin = false;
+    } else {
+      isLogin = loginController.sharedPreferencesLogin.getBool("isLogin")!;
+    }
     return isLogin;
   }
 
@@ -67,14 +74,12 @@ class _SplashScreenState extends State<SplashScreen>
               child: Center(
                   child: Image.asset(
                 "assets/images/food_splash.png",
-                width: Dimensions.splashImg,
               ))),
           SizedBox(
             height: 40,
           ),
           Image.asset(
             "assets/images/best_food.png",
-            width: Dimensions.splashImg,
           )
         ],
       ),

@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     LoginController loginController = Get.find<LoginController>();
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   backgroundColor: AppColors.mainColor,

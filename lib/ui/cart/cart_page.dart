@@ -18,6 +18,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../routes/routes_helper.dart';
 import '../../utils/colors.dart';
+import '../paypal/payment_page.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -291,6 +292,7 @@ class CartPage extends StatelessWidget {
                         // popularProductController.addItem(product);
                         print("tapped checkout");
                         cartController.addToHistroy();
+                        Get.to(PaymentPage(title: '',));
                       },
                       child: BigText(
                         text: "Checkout",

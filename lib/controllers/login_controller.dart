@@ -25,15 +25,12 @@ class LoginController extends GetxController {
       };
       // sharedPreferencesLogin.setString("userLoginDetail", jsonEncode(_userLoginDetail));
       sharedPreferencesLogin.setBool("isLogin", true);
-      print("userLoign if"+sharedPreferencesLogin.getBool("isLogin").toString());
       Get.offNamed(RoutesHelper.getInitial());
     } else if (username != "Avinash" || userpass != "12345") {
       Get.snackbar("Invalid User", "Please Check Ur credential",
           colorText: Colors.white, backgroundColor: AppColors.mainColor);
     } else {
       sharedPreferencesLogin.setBool("isLogin",false);
-      print("userLoign else"+sharedPreferencesLogin.getBool("isLogin").toString());
-
     }
   }
 }
